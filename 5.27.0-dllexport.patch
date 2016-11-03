@@ -1,0 +1,62 @@
+--- origsrc/kactivities-stats-5.27.0/autotests/CMakeLists.txt	2016-10-02 02:45:27.000000000 -0500
++++ src/kactivities-stats-5.27.0/autotests/CMakeLists.txt	2016-11-01 23:42:29.886824600 -0500
+@@ -3,6 +3,8 @@ project (KActivitiesStatsAutotests)
+ 
+ find_package (Qt5 REQUIRED NO_MODULE COMPONENTS Test Core DBus Sql)
+ 
++#add_definitions(-DKACTIVITIESSTATS_STATIC_DEFINE)
++
+ include_directories (
+    ${KASTATS_CURRENT_ROOT_SOURCE_DIR}/src
+    ${KASTATS_CURRENT_ROOT_SOURCE_DIR}/autotests
+--- origsrc/kactivities-stats-5.27.0/src/cleaning.h	2016-10-02 02:45:27.000000000 -0500
++++ src/kactivities-stats-5.27.0/src/cleaning.h	2016-11-01 23:40:50.256752000 -0500
+@@ -36,7 +36,7 @@ void KACTIVITIESSTATS_EXPORT forgetResou
+                                             Terms::Agent agent,
+                                             const QString &resource);
+ 
+-enum KACTIVITIESSTATS_EXPORT TimeUnit {
++enum TimeUnit {
+     Hours,
+     Days,
+     Months
+--- origsrc/kactivities-stats-5.27.0/src/resultset.h	2016-10-02 02:45:27.000000000 -0500
++++ src/kactivities-stats-5.27.0/src/resultset.h	2016-11-02 01:06:12.622849000 -0500
+@@ -57,7 +57,7 @@ public:
+     /**
+      * Structure containing data of one of the results
+      */
+-    class Result {
++    class KACTIVITIESSTATS_EXPORT Result {
+     public:
+         Result();
+         ~Result();
+@@ -122,7 +122,7 @@ public:
+      * TODO: Consider making this to be more than just forward iterator.
+      *       Maybe even a random-access one.
+      */
+-    class const_iterator {
++    class KACTIVITIESSTATS_EXPORT const_iterator {
+     public:
+         typedef std::random_access_iterator_tag iterator_category;
+         typedef int difference_type;
+--- origsrc/kactivities-stats-5.27.0/src/terms.h	2016-10-02 02:45:27.000000000 -0500
++++ src/kactivities-stats-5.27.0/src/terms.h	2016-11-01 23:40:27.288417300 -0500
+@@ -42,7 +42,7 @@ namespace Terms {
+      * Enumerator specifying the ordering in which the
+      * results of the query should be listed
+      */
+-    enum KACTIVITIESSTATS_EXPORT Order {
++    enum Order {
+         HighScoredFirst,      ///< Resources with the highest scores first
+         RecentlyUsedFirst,    ///< Recently used resources first
+         RecentlyCreatedFirst, ///< Recently created resources first
+@@ -53,7 +53,7 @@ namespace Terms {
+     /**
+      * Which resources should be returned
+      */
+-    enum KACTIVITIESSTATS_EXPORT Select {
++    enum Select {
+         LinkedResources, ///< Resources linked to an activity, or globally
+         UsedResources,   ///< Resources that have been accessed
+         AllResources     ///< Combined set of accessed and linked resources

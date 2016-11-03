@@ -1,0 +1,27 @@
+inherit kf5
+
+NAME="kf5-kactivities-stats"
+VERSION=5.27.0
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="KDE 5 activities system query library"
+DESCRIPTION="The KActivitiesStats library provides a querying mechanism for the
+data that the activity manager collects - which documents have been opened by
+which applications, and what documents have been linked to which activity."
+
+PATCH_URI="5.27.0-dllexport.patch"
+
+PKG_NAMES="libKF5ActivitiesStats1 libKF5ActivitiesStats-devel"
+libKF5ActivitiesStats1_CONTENTS="
+	usr/bin/cygKF5ActivitiesStats-1.dll
+	usr/share/doc/
+"
+libKF5ActivitiesStats_devel_REQUIRES="libQt5Core-devel"
+libKF5ActivitiesStats_devel_CONTENTS="
+	usr/include/KF5/KActivitiesStats/
+	usr/include/KF5/kactivitiesstats_version.h
+	usr/lib/cmake/KF5ActivitiesStats/
+	${QT5_MKSPECSDIR#/}/modules/qt_KActivitiesStats.pri
+	usr/lib/libKF5ActivitiesStats.dll.a
+	usr/lib/pkgconfig/libKActivitiesStats.pc
+"
